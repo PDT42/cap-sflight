@@ -1,61 +1,83 @@
-using { Currency, custom.managed, sap.common.CodeList } from './common';
+using {
+  Currency,
+  custom.managed,
+  sap.common.CodeList
+} from './common';
 using {
   sap.fe.cap.travel.Airline,
   sap.fe.cap.travel.Passenger,
   sap.fe.cap.travel.TravelAgency,
   sap.fe.cap.travel.Supplement,
   sap.fe.cap.travel.Flight
- } from './master-data';
+} from './master-data';
 
 namespace sap.fe.cap.travel;
 
 entity Travel : managed {
-  key TravelUUID : UUID;
-  TravelID       : Integer default 0 @readonly;
-  BeginDate      : Date @mandatory;
-  EndDate        : Date @mandatory;
-  BookingFee     : Decimal(16,3) default 0;
-  TotalPrice     : Decimal(16,3) @readonly;
-  CurrencyCode   : Currency default 'EUR';
-  Description    : String(1024) @assert.format: '^[a-zA-Z]{5}';
-  TravelStatus   : Association to TravelStatus default 'O' @readonly;
-  to_Agency      : Association to TravelAgency @mandatory;
-  to_Customer    : Association to Passenger @mandatory;
-  to_Booking     : Composition of many Booking on to_Booking.to_Travel = $self;
+  key TravelUUID   : UUID;
+      TravelID     : Integer default 0                       @readonly;
+      BeginDate    : Date                                    @mandatory;
+      EndDate      : Date                                    @mandatory;
+      BookingFee   : Decimal(16, 3) default 0;
+      TotalPrice   : Decimal(16, 3)                          @readonly;
+      CurrencyCode : Currency default 'EUR';
+      Description  : String(1024);
+      TravelStatus : Association to TravelStatus default 'O' @readonly;
+      to_Agency    : Association to TravelAgency             @mandatory;
+      to_Customer  : Association to Passenger                @mandatory;
+      to_Booking   : Composition of many Booking
+                       on to_Booking.to_Travel = $self;
 };
 
+annotate Travel with {
+  BookingFee  @assert.range : [(0), _];
+  Description @assert.format: '^[A-Za-z0-9\s]{5}'
+}
+
 annotate Travel with @Capabilities.FilterRestrictions.FilterExpressionRestrictions: [
-  { Property: 'BeginDate', AllowedExpressions : 'SingleRange' },
-  { Property: 'EndDate', AllowedExpressions : 'SingleRange' }
+  {
+    Property          : 'BeginDate',
+    AllowedExpressions: 'SingleRange'
+  },
+  {
+    Property          : 'EndDate',
+    AllowedExpressions: 'SingleRange'
+  }
 ];
 
 
 entity Booking : managed {
-  key BookingUUID   : UUID;
-  BookingID         : Integer @Core.Computed;
-  BookingDate       : Date;
-  ConnectionID      : String(4) @mandatory;
-  FlightDate        : Date @mandatory;
-  FlightPrice       : Decimal(16,3) @mandatory;
-  CurrencyCode      : Currency;
-  BookingStatus     : Association to BookingStatus default 'N' @mandatory;
-  to_BookSupplement : Composition of many BookingSupplement on to_BookSupplement.to_Booking = $self;
-  to_Carrier        : Association to Airline @mandatory;
-  to_Customer       : Association to Passenger @mandatory;
-  to_Travel         : Association to Travel;
-  to_Flight         : Association to Flight on  to_Flight.AirlineID = to_Carrier.AirlineID
-                                            and to_Flight.FlightDate = FlightDate
-                                            and to_Flight.ConnectionID = ConnectionID;
+  key BookingUUID       : UUID;
+      BookingID         : Integer                                  @Core.Computed;
+      BookingDate       : Date;
+      ConnectionID      : String(4)                                @mandatory;
+      FlightDate        : Date                                     @mandatory;
+      FlightPrice       : Decimal(16, 3)                           @mandatory;
+      CurrencyCode      : Currency;
+      BookingStatus     : Association to BookingStatus default 'N' @mandatory;
+      to_BookSupplement : Composition of many BookingSupplement
+                            on to_BookSupplement.to_Booking = $self;
+      to_Carrier        : Association to Airline                   @mandatory;
+      to_Customer       : Association to Passenger                 @mandatory;
+      to_Travel         : Association to Travel;
+      to_Flight         : Association to Flight
+                            on  to_Flight.AirlineID    = to_Carrier.AirlineID
+                            and to_Flight.FlightDate   = FlightDate
+                            and to_Flight.ConnectionID = ConnectionID;
 };
 
+annotate Booking with {
+  FlightPrice  @assert.range : [(0), _];
+}
+
 entity BookingSupplement : managed {
-  key BookSupplUUID   : UUID;
-  BookingSupplementID : Integer @Core.Computed;
-  Price               : Decimal(16,3) @mandatory;
-  CurrencyCode        : Currency;
-  to_Booking          : Association to Booking;
-  to_Travel           : Association to Travel;
-  to_Supplement       : Association to Supplement @mandatory;
+  key BookSupplUUID       : UUID;
+      BookingSupplementID : Integer                   @Core.Computed;
+      Price               : Decimal(16, 3)            @mandatory;
+      CurrencyCode        : Currency;
+      to_Booking          : Association to Booking;
+      to_Travel           : Association to Travel;
+      to_Supplement       : Association to Supplement @mandatory;
 };
 
 
@@ -64,8 +86,8 @@ entity BookingSupplement : managed {
 //
 
 type BookingStatusCode : String(1) enum {
-  New      = 'N';
-  Booked   = 'B';
+  New = 'N';
+  Booked = 'B';
   Canceled = 'X';
 };
 
@@ -73,8 +95,8 @@ entity BookingStatus : CodeList {
   key code : BookingStatusCode
 };
 
-type TravelStatusCode : String(1) enum {
-  Open     = 'O';
+type TravelStatusCode  : String(1) enum {
+  Open = 'O';
   Accepted = 'A';
   Canceled = 'X';
 };
@@ -84,7 +106,7 @@ entity TravelStatus : CodeList {
 }
 
 extend entity Travel with {
-  GoGreen        : Boolean default false;
-  GreenFee       : Decimal(16, 3) @Core.Computed @readonly;
-  TreesPlanted   : Integer @Core.Computed @readonly;  
+  GoGreen : Boolean default false;
+  GreenFee : Decimal(16, 3)  @Core.Computed  @readonly;
+  TreesPlanted : Integer     @Core.Computed  @readonly;
 };
