@@ -18,28 +18,28 @@
     "travel-analytics": "cds watch --open sap.fe.cap.travel_analytics/index.html?sap-ui-xx-viewCache=false"
   },
   "dependencies": {
-    "@cap-js/hana": ">=2",
-    "@sap/cds": "git+https://github.tools.sap/cap/cds.git#fix-target-generation",
-    "@sap/xssec": "^4",
+    "@cap-js/hana": "^2.2.0",
+    "@sap/cds": "^9.3.1",
+    "@sap/xssec": "^4.9.2",
     "express": "^4"
   },
   "devDependencies": {
-    "@cap-js/cds-test": "^0",
-    "@cap-js/cds-typer": "^0.35.0",
-    "@cap-js/cds-types": "^0",
-    "@cap-js/sqlite": ">=2",
-    "@sap/cds-dk": "^9.2.0",
-    "@sap/ux-specification": "UI5-1.128",
+    "@cap-js/cds-test": "^0.4.0",
+    "@cap-js/cds-typer": "^0.37.0",
+    "@cap-js/cds-types": "^0.14.0",
+    "@cap-js/sqlite": "^2.0.2",
+    "@sap/cds-dk": "^9.3.1",
+    "@sap/ux-specification": "^1.136.6",
     "@types/jest": "^30.0.0",
-    "cds-plugin-ui5": "^0.13.1",
-    "cross-spawn": "^7.0.3",
-    "eslint": "^9",
+    "cds-plugin-ui5": "^0.13.5",
+    "cross-spawn": "^7.0.6",
+    "eslint": "^9.35.0",
     "http-proxy": "^1.18.1",
-    "jest": "^30.1.0",
-    "qunit": "^2.9.3",
-    "ts-jest": "^29.2.5",
-    "tsx": "^4.19.2",
-    "typescript-eslint": "^8.12.2"
+    "jest": "^30.1.3",
+    "qunit": "^2.24.1",
+    "ts-jest": "^29.4.2",
+    "tsx": "^4.20.5",
+    "typescript-eslint": "^8.44.0"
   },
   "cds": {
     "requires": {
