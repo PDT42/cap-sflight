@@ -6,7 +6,7 @@
       "source": "^/analytics/(.*)$",
       "target": "/analytics/$1",
       "destination": "sflight-srv",
-      "authenticationType": "none",
+      "authenticationType": "basic",
       "csrfProtection": false
     },
     {
