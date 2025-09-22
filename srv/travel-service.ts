@@ -31,11 +31,11 @@ export class TravelService extends cds.ApplicationService { init() {
 
 
   // Ensure BeginDate is not before today and not after EndDate.
-  // this.before ('SAVE', Travel, req => {
-  //   const { BeginDate, EndDate } = req.data
-  //   if (BeginDate < today()) req.error (400, `Begin Date must not be before today.`, 'in/BeginDate')
-  //   if (BeginDate > EndDate) req.error (400, `End Date must be after Begin Date.`, 'in/EndDate')
-  // })
+  this.before ('SAVE', Travel, req => {
+    const { BeginDate, EndDate } = req.data
+    if (BeginDate < today()) req.error ({code: 422, message: 'End Date must be after Begin Date.', target: 'in/EndDate', additionalTargets: ['in/BeginDate']})
+    if (BeginDate > EndDate) req.error ({code: 422, message: 'End Date must be after Begin Date.', target: 'in/EndDate', additionalTargets: ['in/BeginDate']})
+  })
 
   this.before('UPDATE', Travel.drafts, async (req) => {
     let { BeginDate, EndDate } = req.data
@@ -50,7 +50,7 @@ export class TravelService extends cds.ApplicationService { init() {
 
     if (beginDateToValidate > endDateToValidate) {
       // @ts-ignore
-      throw req.error({code: 422, message: 'End Date must be after Begin Date.', target: 'in/EndDate', additionalTargets: ['in/BeginDate']})
+      req.error({code: 422, message: 'End Date must be after Begin Date.', target: 'in/EndDate', additionalTargets: ['in/BeginDate']})
     }
   })
 
