@@ -138,11 +138,11 @@ modules:
     build-parameters:
       build-result: resources
       requires:
-        - name: sflighttravel_analytics
+        - name: travel_analytics
           artifacts:
             - travel_analytics.zip
           target-path: resources
-        - name: sflighttravel_processor
+        - name: travel_processor
           artifacts:
             - travel_processor.zip
           target-path: resources
