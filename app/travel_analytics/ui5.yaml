@@ -23,7 +23,7 @@ builder:
     - name: ui5-tooling-transpile-task
       afterTask: replaceVersion
       # configuration:
-        # debug: true
+      # debug: true
 
 server:
   customMiddleware:

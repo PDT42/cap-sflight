@@ -79,7 +79,8 @@
             }
           }
         }
-      }
+      },
+      "workzone": true
     },
     "log": {
       "service": true
