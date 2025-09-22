@@ -51,28 +51,7 @@
           "kind": "hana"
         },
         "auth": {
-          "kind": "mocked-auth",
-          "users": {
-            "rose": {
-              "roles": []
-            },
-            "martha": {
-              "roles": [
-                "reviewer"
-              ]
-            },
-            "amy": {
-              "roles": [
-                "processor"
-              ]
-            },
-            "admin": {
-              "password": "admin",
-              "roles": [
-                "admin"
-              ]
-            }
-          }
+          "kind": "xsuaa"
         }
       },
       "[development]": {
