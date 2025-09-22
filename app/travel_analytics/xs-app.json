@@ -6,14 +6,14 @@
       "source": "^/analytics/(.*)$",
       "target": "/analytics/$1",
       "destination": "sflight-srv",
-      "authenticationType": "basic",
+      "authenticationType": "xsuaa",
       "csrfProtection": false
     },
     {
       "source": "^(.*)$",
       "target": "$1",
       "service": "html5-apps-repo-rt",
-      "authenticationType": "none"
+      "authenticationType": "xsuaa"
     }
   ]
 }
