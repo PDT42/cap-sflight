@@ -23,6 +23,7 @@ modules:
     path: gen/srv
     requires:
       - name: sflight-draft-validation-sample-db
+      - name: sflight-draft-validation-sample-uaa
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter, destinations)
         properties:
