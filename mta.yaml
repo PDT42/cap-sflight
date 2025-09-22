@@ -98,8 +98,8 @@ modules:
     requires:
       - name: sflight-draft-validation-sample-uaa
         parameters:
-        service-key:
-          name: sflight-draft-validation-sample-uaa-key
+          service-key:
+            name: sflight-draft-validation-sample-uaa-key
       - name: sflight-draft-validation-sample-html5-repo-host
         parameters:
           service-key:
