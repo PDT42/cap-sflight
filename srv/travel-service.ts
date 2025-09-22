@@ -50,7 +50,7 @@ export class TravelService extends cds.ApplicationService { init() {
 
     if (beginDateToValidate > endDateToValidate) {
       // @ts-ignore
-      req.error({code: 422, message: 'End Date must be after Begin Date.', target: 'in/EndDate', additionalTargets: ['in/BeginDate']})
+      throw req.error({code: 422, message: 'End Date must be after Begin Date.', target: 'in/EndDate', additionalTargets: ['in/BeginDate']})
     }
   })
 
