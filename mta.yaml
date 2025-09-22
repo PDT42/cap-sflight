@@ -127,7 +127,7 @@ modules:
     type: com.sap.application.content
     path: .
     requires:
-      - name: sflight-draft-validation-sample-auth
+      - name: sflight-draft-validation-sample-uaa
       - name: srv-api
       - name: sflight-draft-validation-sample-html5-repo-host
         parameters:
@@ -138,16 +138,14 @@ modules:
     build-parameters:
       build-result: resources
       requires:
-        - name: travel_analytics
-          artifacts:
-            - travel_analytics.zip
-          target-path: resources
-        - name: travel_processor
-          artifacts:
-            - travel_processor.zip
-          target-path: resources
-        - name: sflight-draft-validation-sample-app-travel-analytics
         - name: sflight-draft-validation-sample-app-travel-processor
+          artifacts:
+            - travel-processor.zip
+          target-path: app/
+        - name: sflight-draft-validation-sample-app-travel-analytics
+          artifacts:
+            - travel-analytics.zip
+          target-path: app/
     parameters:
       config:
         HTML5Runtime_enabled: true
