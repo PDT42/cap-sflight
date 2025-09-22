@@ -1,7 +1,13 @@
 {
   "routes": [
+    { 
+     "source": "^(/.*)",                                    
+     "target": "$1",                                        
+     "service": "sflight-draft-validation-sample-html5-repo-runtime", 
+     "authenticationType": "none"                      
+    },
     {
-      "source": "^/(.*)$",
+      "source": "^/odata/(.*)$",
       "target": "$1",
       "destination": "srv-api",
       "csrfProtection": true,
