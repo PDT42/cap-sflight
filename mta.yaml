@@ -129,6 +129,8 @@ modules:
           name: srv-api # must be used in xs-app.json as well
           url: ~{srv-url}
           forwardAuthToken: true
+      - name: sflight-draft-validation-sample-destination-service
+      - name: sflight-draft-validation-sample-html5-repo-runtime
     provides:
       - name: app-api
         properties:
