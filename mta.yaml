@@ -24,7 +24,6 @@ modules:
     requires:
       - name: sflight-draft-validation-sample-db
       - name: sflight-draft-validation-sample-uaa
-      - name: sflight-draft-validation-sample-destination-service
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter, destinations)
         properties:
@@ -42,6 +41,7 @@ modules:
       buildpack: nodejs_buildpack
     requires:
       - name: sflight-draft-validation-sample-db
+      - name: sflight-draft-validation-sample-uaa
     build-parameters:
       ignore: ["node_modules/"]
 
@@ -77,7 +77,6 @@ modules:
       builder: custom
       commands:
         - npm run build
-        - npm ci
       supported-platforms: []
 
   # ------------- APPLICATION: TRAVEL ANALYTICS ----------------
@@ -90,7 +89,6 @@ modules:
       builder: custom
       commands:
         - npm run build
-        - npm ci
       supported-platforms: []
 
   # ------------------ DESTINATION CONTENT ---------------------
@@ -109,6 +107,8 @@ modules:
           service-key:
             name: sflight-draft-validation-sample-html5-repo-host-key
       - name: sflight-draft-validation-sample-destination-service
+        parameters:
+          content-target: true
     parameters:
       content:
         instance:
