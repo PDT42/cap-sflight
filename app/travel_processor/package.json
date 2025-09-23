@@ -1,5 +1,5 @@
 {
-  "name": "travel-processor",
+  "name": "travel-processor-java",
   "version": "1.0.0",
   "private": true,
   "main": "webapp/index.html",

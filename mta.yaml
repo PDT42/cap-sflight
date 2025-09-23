@@ -68,11 +68,11 @@ modules:
       requires:
         - name: sflight-draft-validation-sample-java-app-travel-processor
           artifacts:
-            - travel-processor.zip
+            - travel-processor-java.zip
           target-path: app/
         - name: sflight-draft-validation-sample-java-app-travel-analytics
           artifacts:
-            - travel-analytics.zip
+            - travel-analytics-java.zip
           target-path: app/
 
   # ------------- APPLICATION: TRAVEL PROCESSOR ----------------

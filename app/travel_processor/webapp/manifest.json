@@ -1,12 +1,12 @@
 {
     "_version": "1.32.0",
     "sap.app": {
-        "id": "sap.fe.cap.travel",
+        "id": "sap.fe.cap.travel.java",
         "type": "application",
         "title": "{{title}}",
         "description": "{{description}}",
         "i18n": {
-            "bundleName": "sap.fe.cap.travel.i18n.i18n",
+            "bundleName": "sap.fe.cap.travel.java.i18n.i18n",
             "supportedLocales": [
                 "en",
                 "de",
@@ -81,7 +81,7 @@
             "i18n": {
                 "type": "sap.ui.model.resource.ResourceModel",
                 "settings": {
-                    "bundleName": "sap.fe.cap.travel.i18n.i18n",
+                    "bundleName": "sap.fe.cap.travel.java.i18n.i18n",
                     "supportedLocales": [
                         "en",
                         "de",
@@ -182,7 +182,7 @@
                                 "body": {
                                     "sections": {
                                         "CustomSection": {
-                                            "template": "sap.fe.cap.travel.ext.fragment.CustomSection",
+                                            "template": "sap.fe.cap.travel.java.ext.fragment.CustomSection",
                                             "position": {
                                                 "placement": "After",
                                                 "anchor": "Travel"
@@ -217,7 +217,7 @@
             "extensions": {
                 "sap.ui.controllerExtensions": {
                     "sap.fe.templates.ObjectPage.ObjectPageController": {
-                        "controllerName": "sap.fe.cap.travel.ext.controller.ObjectPageExtension"
+                        "controllerName": "sap.fe.cap.travel.java.ext.controller.ObjectPageExtension"
                     }
                 }
             }
