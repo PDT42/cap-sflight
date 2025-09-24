@@ -43,6 +43,11 @@ export class TravelService extends cds.ApplicationService { init() {
     let { BeginDate, EndDate } = req.data
     if (!BeginDate && !EndDate) return //> skip if no dates changed
 
+    if (BeginDate && BeginDate < today()) {
+      // @ts-ignore
+      req.error({code: 422, message: 'Begin Date must be in the future.', target: 'in/BeginDate'})
+    }
+
     const persistedData = await cds.ql.SELECT.one(Travel.drafts) 
       .columns(['BeginDate', 'EndDate']) 
       .where({ TravelUUID: req.data.TravelUUID })
