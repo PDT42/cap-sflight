@@ -34,7 +34,7 @@ export class TravelService extends cds.ApplicationService { init() {
   this.before ('SAVE', Travel, req => {
     const { BeginDate, EndDate } = req.data
     // @ts-ignore
-    if (BeginDate < today()) req.error ({code: 422, message: 'End Date must be after Begin Date.', target: 'in/EndDate', additionalTargets: ['in/BeginDate']})
+    if (BeginDate < today()) req.error ({code: 422, message: 'Begin Date must be in the future.', target: 'in/BeginDate'})
       // @ts-ignore
     if (BeginDate > EndDate) req.error ({code: 422, message: 'End Date must be after Begin Date.', target: 'in/EndDate', additionalTargets: ['in/BeginDate']})
   })
