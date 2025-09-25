@@ -182,7 +182,7 @@
                                 "body": {
                                     "sections": {
                                         "CustomSection": {
-                                            "template": "sap.fe.cap.travel.java.ext.fragment.CustomSection",
+                                            "template": "sap.fe.cap.travel.ext.fragment.CustomSection",
                                             "position": {
                                                 "placement": "After",
                                                 "anchor": "Travel"
@@ -217,7 +217,7 @@
             "extensions": {
                 "sap.ui.controllerExtensions": {
                     "sap.fe.templates.ObjectPage.ObjectPageController": {
-                        "controllerName": "sap.fe.cap.travel.java.ext.controller.ObjectPageExtension"
+                        "controllerName": "sap.fe.cap.travel.ext.controller.ObjectPageExtension"
                     }
                 }
             }
