@@ -1,7 +1,7 @@
 _schema-version: "3.2"
-ID: capire.sflight
+ID: capire.sflight.draft.validation.sample
 version: 1.0.0
-description: "CAP sflight demo"
+description: "CAP sflight draft validation sample"
 
 parameters:
   enable-parallel-deployments: true
@@ -17,13 +17,13 @@ build-parameters:
 
 modules:
   # --------------------- SERVER MODULE ------------------------
-  - name: sflight-srv
+  - name: sflight-draft-validation-sample-srv
   # ------------------------------------------------------------
     type: nodejs
     path: gen/srv
     requires:
-      - name: sflight-db
-      - name: sflight-uaa
+      - name: sflight-draft-validation-sample-db
+      - name: sflight-draft-validation-sample-uaa
     provides:
       - name: srv-api # required by consumers of CAP services (e.g. approuter, destinations)
         properties:
@@ -33,42 +33,42 @@ modules:
       ignore: ["node_modules/"]
 
   # -------------------- SIDECAR MODULE ------------------------
-  - name: sflight-db-deployer
+  - name: sflight-draft-validation-sample-db-deployer
   # ------------------------------------------------------------
     type: hdb
     path: gen/db
     parameters:
       buildpack: nodejs_buildpack
     requires:
-      - name: sflight-db
-      - name: sflight-uaa
+      - name: sflight-draft-validation-sample-db
+      - name: sflight-draft-validation-sample-uaa
     build-parameters:
       ignore: ["node_modules/"]
 
   # ------------------ APPLICATION CONTENT ---------------------
-  - name: sflight-appcontent
+  - name: sflight-draft-validation-sample-appcontent
   # ------------------------------------------------------------
     type: com.sap.application.content
     path: gen
     requires:
-      - name: sflight-destination-service
-      - name: sflight-html5-repo-host
+      - name: sflight-draft-validation-sample-destination-service
+      - name: sflight-draft-validation-sample-html5-repo-host
         parameters:
           content-target: true
     build-parameters:
       build-result: app/
       requires:
-        - name: sflight-app-travel-processor
+        - name: sflight-draft-validation-sample-app-travel-processor
           artifacts:
             - travel-processor.zip
           target-path: app/
-        - name: sflight-app-travel-analytics
+        - name: sflight-draft-validation-sample-app-travel-analytics
           artifacts:
             - travel-analytics.zip
           target-path: app/
 
   # ------------- APPLICATION: TRAVEL PROCESSOR ----------------
-  - name: sflight-app-travel-processor
+  - name: sflight-draft-validation-sample-app-travel-processor
   # ------------------------------------------------------------
     type: html5
     path: app/travel_processor
@@ -80,7 +80,7 @@ modules:
       supported-platforms: []
 
   # ------------- APPLICATION: TRAVEL ANALYTICS ----------------
-  - name: sflight-app-travel-analytics
+  - name: sflight-draft-validation-sample-app-travel-analytics
   # ------------------------------------------------------------
     type: html5
     path: app/travel_analytics
@@ -92,21 +92,21 @@ modules:
       supported-platforms: []
 
   # ------------------ DESTINATION CONTENT ---------------------
-  - name: sflight-destinationcontent
+  - name: sflight-draft-validation-sample-destinationcontent
   # ------------------------------------------------------------
     type: com.sap.application.content
     build-parameters:
       no-source: true
     requires:
-      - name: sflight-uaa
+      - name: sflight-draft-validation-sample-uaa
         parameters:
           service-key:
-            name: sflight-uaa-key
-      - name: sflight-html5-repo-host
+            name: sflight-draft-validation-sample-uaa-key
+      - name: sflight-draft-validation-sample-html5-repo-host
         parameters:
           service-key:
-            name: sflight-html5-repo-host-key
-      - name: sflight-destination-service
+            name: sflight-draft-validation-sample-html5-repo-host-key
+      - name: sflight-draft-validation-sample-destination-service
         parameters:
           content-target: true
     parameters:
@@ -114,19 +114,19 @@ modules:
         instance:
           existing_destinations_policy: update
           destinations:
-            - Name: sflight-html5-repository
-              ServiceInstanceName: sflight-html5-repo-host
-              ServiceKeyName: sflight-html5-repo-host-key
+            - Name: sflight-draft-validation-sample-html5-repository
+              ServiceInstanceName: sflight-draft-validation-sample-html5-repo-host
+              ServiceKeyName: sflight-draft-validation-sample-html5-repo-host-key
               sap.cloud.service: sap.fe.cap.sflight
-            - Name: sflight-uaa
+            - Name: sflight-draft-validation-sample-uaa
               Authentication: OAuth2UserTokenExchange
-              ServiceInstanceName: sflight-uaa
-              ServiceKeyName: sflight-uaa-key
+              ServiceInstanceName: sflight-draft-validation-sample-uaa
+              ServiceKeyName: sflight-draft-validation-sample-uaa-key
               sap.cloud.service: sap.fe.cap.sflight
 
 resources:
   # ------------------------------------------------------------
-  - name: sflight-db
+  - name: sflight-draft-validation-sample-db
   # ------------------------------------------------------------
     type: com.sap.xs.hdi-container
     parameters:
@@ -136,7 +136,7 @@ resources:
       hdi-service-name: ${service-name}
 
   # ------------------------------------------------------------
-  - name: sflight-uaa
+  - name: sflight-draft-validation-sample-uaa
   # ------------------------------------------------------------
     type: org.cloudfoundry.managed-service
     parameters:
@@ -161,7 +161,7 @@ resources:
               - $XSAPPNAME.admin
 
   # ------------------------------------------------------------
-  - name: sflight-html5-repo-runtime
+  - name: sflight-draft-validation-sample-html5-repo-runtime
   # ------------------------------------------------------------
     type: org.cloudfoundry.managed-service
     parameters:
@@ -169,7 +169,7 @@ resources:
       service-plan: app-runtime
 
   # ------------------------------------------------------------
-  - name: sflight-html5-repo-host
+  - name: sflight-draft-validation-sample-html5-repo-host
   # ------------------------------------------------------------
     type: org.cloudfoundry.managed-service
     parameters:
@@ -177,7 +177,7 @@ resources:
       service-plan: app-host
 
   # ------------------------------------------------------------
-  - name: sflight-destination-service
+  - name: sflight-draft-validation-sample-destination-service
   # ------------------------------------------------------------
     type: org.cloudfoundry.managed-service
     requires:
@@ -192,11 +192,18 @@ resources:
           instance:
             existing_destinations_policy: update
             destinations:
-              - Name: sflight-srv
+              - Name: sflight-draft-validation-sample-srv
                 URL: ~{srv-api/srv-url}
                 Authentication: NoAuthentication
                 Type: HTTP
                 ProxyType: Internet
                 HTML5.ForwardAuthToken: true
                 HTML5.DynamicDestination: true
-
+  
+  # ------------------------------------------------------------
+  - name: sflight-draft-validation-sample-logging
+  # ------------------------------------------------------------
+    type: org.cloudfoundry.managed-service
+    parameters:
+      service: application-logs
+      service-plan: standard

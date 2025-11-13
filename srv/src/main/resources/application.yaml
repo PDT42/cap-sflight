@@ -1,0 +1,51 @@
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+
+cds:
+    sql.hana.search:
+        fuzzy: true
+        fuzzinessThreshold: 0.9
+    security.mock.users:
+      martha:
+        roles:
+          - reviewer
+      amy:
+        roles:
+          - processor
+      admin:
+        password: admin
+        roles:
+          - admin
+
+    odata-v4:
+        endpoint:
+            path: "/"
+
+---
+spring:
+    config.activate.on-profile: default
+    sql.init.platform: h2
+
+server:
+    port: 4004
+
+---
+spring:
+    config.activate.on-profile: cloud
+---
+management:
+  endpoint:
+    health:
+      show-components: always
+      probes.enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health
+  health:
+    defaults.enabled: false
+    ping.enabled: true
+    db.enabled: true
